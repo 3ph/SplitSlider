@@ -29,9 +29,9 @@
 
 /* Begin PBXFileReference section */
 		1F4216AD4F91DF4E933D0C7E /* Pods-SplitSlider_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitSlider_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SplitSlider_Example/Pods-SplitSlider_Example.release.xcconfig"; sourceTree = "<group>"; };
-		2A1EDDCBDB1470E30A7985BF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		2A1EDDCBDB1470E30A7985BF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		35A5C41316C78B7B1C780AA8 /* Pods_SplitSlider_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitSlider_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		371303E10EB638FCF061624A /* SplitSlider.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = SplitSlider.podspec; path = ../SplitSlider.podspec; sourceTree = "<group>"; };
+		371303E10EB638FCF061624A /* SplitSlider.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SplitSlider.podspec; path = ../SplitSlider.podspec; sourceTree = "<group>"; };
 		4083DEF68DFCB2DC63B7C3C3 /* Pods_SplitSlider_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitSlider_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4657A5937702B03DF6F118B9 /* Pods-SplitSlider_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitSlider_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SplitSlider_Tests/Pods-SplitSlider_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* SplitSlider_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitSlider_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,7 +44,7 @@
 		607FACE51AFB9204008FA782 /* SplitSlider_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitSlider_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		664E05017FFDBA6151887192 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		664E05017FFDBA6151887192 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		9235A6E5E087E587893E2F76 /* Pods-SplitSlider_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitSlider_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SplitSlider_Example/Pods-SplitSlider_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		9CDD6E2ADD79036E9E118DCA /* Pods-SplitSlider_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitSlider_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SplitSlider_Tests/Pods-SplitSlider_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -496,6 +496,7 @@
 			baseConfigurationReference = 9235A6E5E087E587893E2F76 /* Pods-SplitSlider_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SplitSlider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -510,6 +511,7 @@
 			baseConfigurationReference = 1F4216AD4F91DF4E933D0C7E /* Pods-SplitSlider_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SplitSlider/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -532,7 +534,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -548,7 +550,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

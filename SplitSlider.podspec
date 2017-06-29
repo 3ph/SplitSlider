@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'SplitSlider'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of SplitSlider.'
+  s.summary          = 'A simple customizable two way slider.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,9 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  Two way slider with zero (minimum) in the middle. In fact two sliders combined into one,
+  left one increasing towards left, right one towards right.
+  The appearance is customizable as well as the individual slider portions.
                        DESC
 
   s.homepage         = 'https://github.com/3ph/SplitSlider'
@@ -31,7 +33,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'SplitSlider/Classes/**/*'
-  
+
   # s.resource_bundles = {
   #   'SplitSlider' => ['SplitSlider/Assets/*.png']
   # }

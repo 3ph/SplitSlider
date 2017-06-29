@@ -22,7 +22,7 @@ pod "SplitSlider"
 
 ## Author
 
-3ph, instantni.med@gmail.com
+Tomas Friml, instantni.med@gmail.com
 
 ## License
 

@@ -1,0 +1,6 @@
+framework module Pods_SplitSlider_Tests {
+  umbrella header "Pods-SplitSlider_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
