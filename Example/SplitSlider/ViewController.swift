@@ -32,6 +32,7 @@ import SplitSlider
 class ViewController: UIViewController {
 
     @IBOutlet weak var splitSlider: SplitSlider!
+    @IBOutlet weak var snapToStep: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,11 @@ class ViewController: UIViewController {
         splitSlider.delegate = self
         splitSlider.labelFont = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         
-        
+    }
+    @IBAction func snapToStepToggle(_ sender: Any) {
+        if let toggle = sender as? UISwitch {
+            splitSlider.snapToStep = toggle.isOn
+        }
     }
 
     override func didReceiveMemoryWarning() {

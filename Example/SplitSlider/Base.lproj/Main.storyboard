@@ -26,16 +26,33 @@
                                 <rect key="frame" x="32" y="46" width="256" height="142"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sq4-76-1NY">
+                                <rect key="frame" x="55" y="268.5" width="51" height="31"/>
+                                <connections>
+                                    <action selector="snapToStepToggle:" destination="vXZ-lx-hvc" eventType="valueChanged" id="lfr-3X-1VU"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snap to step" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJS-cp-HMT">
+                                <rect key="frame" x="112" y="273.5" width="96.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ap7-5H-B7E" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="26" id="Nmh-ak-647"/>
                             <constraint firstItem="ap7-5H-B7E" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" multiplier="0.8" id="OIC-zv-UW5"/>
+                            <constraint firstItem="KJS-cp-HMT" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="SoV-7P-lco"/>
                             <constraint firstItem="ap7-5H-B7E" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="ZYu-pg-YpG"/>
                             <constraint firstItem="ap7-5H-B7E" firstAttribute="height" secondItem="kh9-bI-dsS" secondAttribute="height" multiplier="0.25" id="aQM-cl-RW4"/>
+                            <constraint firstItem="KJS-cp-HMT" firstAttribute="leading" secondItem="Sq4-76-1NY" secondAttribute="trailing" constant="8" symbolic="YES" id="fwe-6s-Lkf"/>
+                            <constraint firstItem="Sq4-76-1NY" firstAttribute="centerY" secondItem="KJS-cp-HMT" secondAttribute="centerY" id="rBm-Uu-gTV"/>
+                            <constraint firstItem="KJS-cp-HMT" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="tqU-wB-vEF"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="snapToStep" destination="Sq4-76-1NY" id="siw-Zo-mmm"/>
                         <outlet property="splitSlider" destination="ap7-5H-B7E" id="Ax8-6Y-vX4"/>
                     </connections>
                 </viewController>
