@@ -38,7 +38,7 @@ public class SplitSlider : UIControl {
     // MARK: - Limits
     
     /// Minimal possible slider value
-    @IBInspectable public var min : CGFloat = 10 {
+    @IBInspectable public var min : CGFloat = 0 {
         didSet {
             left.min = min
             right.min = min
@@ -76,6 +76,14 @@ public class SplitSlider : UIControl {
             leftValueLabel.textColor = labelTextColor
             zeroValueLabel.textColor = labelTextColor
             rightValueLabel.textColor = labelTextColor
+        }
+    }
+    
+    /// Should the thumb snap to closest step
+    @IBInspectable public var snapToStep : Bool = true {
+        didSet {
+            left.snapToStep = snapToStep
+            right.snapToStep = snapToStep
         }
     }
     
@@ -239,12 +247,16 @@ public class SplitSlider : UIControl {
     }
     
     fileprivate func updateLabels() {
-        leftValueLabel.text = "\(left.value)"
-        rightValueLabel.text = "\(right.value)"
+        let leftStepIsInteger = (rint(left.step) == left.step)
+        let rightStepIsInteger = (rint(right.step) == right.step)
+        leftValueLabel.text = leftStepIsInteger ? "\(Int(left.value))" : "\(left.value)"
+        rightValueLabel.text = rightStepIsInteger ? "\(Int(right.value))" : "\(right.value)"
+        let leftMin = leftStepIsInteger ? "\(Int(left.min))" : "\(left.min)"
+        let rightMin = rightStepIsInteger ? "\(Int(right.min))" : "\(right.min)"
         if left.min == right.min {
-            zeroValueLabel.text = "\(left.min)"
+            zeroValueLabel.text = leftMin
         } else {
-            zeroValueLabel.text = "\(left.min)  \(right.min)"
+            zeroValueLabel.text = "\(leftMin)  \(rightMin)"
         }
     }
     

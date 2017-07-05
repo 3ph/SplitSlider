@@ -43,7 +43,7 @@ public class SplitSliderTrack: CALayer {
     }
     
     /// How much of the track is highlighted 0..1
-    public var highlightRatio : CGFloat = 0.25 {
+    public var highlightRatio : CGFloat = 0 {
         didSet {
             highlightRatio = min(1, highlightRatio)
         }

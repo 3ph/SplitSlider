@@ -80,7 +80,11 @@ public class SplitSliderPortion: NSObject {
     }
     
     /// Should the thumb snap to closest step
-    public var snapToStep : Bool = true
+    public var snapToStep : Bool = true {
+        didSet {
+            update()
+        }
+    }
     
     /// Portion slider track
     open let track = SplitSliderTrack()
@@ -104,7 +108,11 @@ public class SplitSliderPortion: NSObject {
     /// - Parameter location: Touch point
     public func updateThumb(location: CGPoint) {
         track.x = location.x
-        value = round((min + track.highlightRatio * (max - min)) / step) * step
+        let newValue = min + track.highlightRatio * (max - min)
+        value = round(newValue / step) * step
+        if snapToStep {
+            track.highlightRatio = (value - min) / (max - min)
+        }
         
         updateThumbFrame()
     }
@@ -122,7 +130,6 @@ public class SplitSliderPortion: NSObject {
         thumb.setNeedsLayout()
         
         CATransaction.commit()
-        
     }
     
     
@@ -143,21 +150,26 @@ public class SplitSliderPortion: NSObject {
     
     
     // MARK: - Private
+    fileprivate var _value : CGFloat = 0
+    
     fileprivate func update() {
         track.setNeedsLayout()
+        var valueUpdated = false
         
         if value < min || value > max {
             value = Swift.min(max, Swift.max(value, min))
+            valueUpdated = true
         }
         
-        if snapToStep {
-            let newValue = (value / step) * step
-            if newValue != value {
-                value = newValue
-            }
+        let newValue = (value / step) * step
+        if newValue != value {
+            value = newValue
+            valueUpdated = true
         }
         
-        track.highlightRatio = (value - min) / (max - min)
+        if valueUpdated {
+            track.highlightRatio = (value - min) / (max - min)
+        }
         
         updateThumbFrame()
     }
