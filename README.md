@@ -19,17 +19,17 @@ Simply add as custom view to storyboard or create programatically.
 
 #### Generic slider properties (affects both parts):
 
-`slider.min` - minimal slider value
-`slider.max` - maximal slider value
-`slider.step` - step value of the slider
-`slider.labelFont` - font of the value labels
-`slider.labelTextColor` - font color of the value labels
-`slider.thumbSize` - size of the slider's thumb
-`slider.thumbColor` - color of the thumb
-`slider.trackHeight` - track height
-`slider.trackColor` - track color
-`slider.trackHighlightColor` - color of selected part of the track
-`slider.snapToStep` - determines if thumb should be snapped to the closest step after the move
+`slider.min` - minimal slider value.  
+`slider.max` - maximal slider value.  
+`slider.step` - step value of the slider.  
+`slider.labelFont` - font of the value labels.  
+`slider.labelTextColor` - font color of the value labels.  
+`slider.thumbSize` - size of the slider's thumb.  
+`slider.thumbColor` - color of the thumb.  
+`slider.trackHeight` - track height.  
+`slider.trackColor` - track color.  
+`slider.trackHighlightColor` - color of selected part of the track.  
+`slider.snapToStep` - determines if thumb should be snapped to the closest step after the move.  
 
 All above properties would affect both portions of the slider but can be set individually through either `slider.left` or `slider.right` portion.
 
