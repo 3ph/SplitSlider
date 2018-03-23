@@ -33,6 +33,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'SplitSlider/Classes/**/*'
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
 
   # s.resource_bundles = {
   #   'SplitSlider' => ['SplitSlider/Assets/*.png']
