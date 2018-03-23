@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         
         splitSlider.delegate = self
         splitSlider.labelFont = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+        splitSlider.left.step = 30
         
     }
     @IBAction func snapToStepToggle(_ sender: Any) {

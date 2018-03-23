@@ -29,22 +29,19 @@
 
 public class SplitSliderThumb: CALayer {
     
-    
     /// Size of the thumb
-    public var size : CGFloat = 20 {
+    public var size: CGFloat = 20 {
         didSet {
             setNeedsDisplay()
         }
     }
     
     /// Color of the the thumb
-    public var color : UIColor = UIColor.yellow {
+    public var color: UIColor = UIColor.yellow {
         didSet {
             setNeedsDisplay()
         }
     }
-   
-    
     
     public override init() {
         super.init()
@@ -63,7 +60,7 @@ public class SplitSliderThumb: CALayer {
         
         initialize()
     }
-
+    
     public override func draw(in ctx: CGContext) {
         
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: size / 2).cgPath

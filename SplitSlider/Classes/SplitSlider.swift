@@ -31,14 +31,14 @@ public protocol SplitSliderDelegate : class {
     func slider(_ slider: SplitSlider, didUpdate value: CGFloat, for portion: SplitSliderPortion)
 }
 
-public class SplitSlider : UIControl {
+public class SplitSlider: UIControl {
     
     public weak var delegate : SplitSliderDelegate?
-    
+
     // MARK: - Limits
     
     /// Minimal possible slider value
-    @IBInspectable public var min : CGFloat = 0 {
+    @IBInspectable public var min: CGFloat = 0 {
         didSet {
             left.min = min
             right.min = min
@@ -46,7 +46,7 @@ public class SplitSlider : UIControl {
     }
     
     /// Maximal possible slider value
-    @IBInspectable public var max : CGFloat = 100 {
+    @IBInspectable public var max: CGFloat = 100 {
         didSet {
             left.max = max
             right.max = max
@@ -54,7 +54,7 @@ public class SplitSlider : UIControl {
     }
     
     /// Step slider value
-    @IBInspectable public var step : CGFloat = 5 {
+    @IBInspectable public var step: CGFloat = 5 {
         didSet {
             left.step = step
             right.step = step
@@ -62,7 +62,7 @@ public class SplitSlider : UIControl {
     }
     
     /// Font for all the labels
-    @IBInspectable public var labelFont : UIFont = UIFont.systemFont(ofSize: 10) {
+    public var labelFont: UIFont = UIFont.systemFont(ofSize: 10) {
         didSet {
             leftValueLabel.font = labelFont
             zeroValueLabel.font = labelFont
@@ -71,7 +71,7 @@ public class SplitSlider : UIControl {
     }
     
     /// Text color for all the labels
-    @IBInspectable public var labelTextColor : UIColor = UIColor.black {
+    @IBInspectable public var labelTextColor: UIColor = UIColor.black {
         didSet {
             leftValueLabel.textColor = labelTextColor
             zeroValueLabel.textColor = labelTextColor
@@ -90,7 +90,7 @@ public class SplitSlider : UIControl {
     
     // MARK: - Thumb/knob
     /// Size of the thumb
-    @IBInspectable public var thumbSize : CGFloat = 20 {
+    @IBInspectable public var thumbSize: CGFloat = 20 {
         didSet {
             updateTracksFrames()
             updateSlider()
@@ -98,7 +98,7 @@ public class SplitSlider : UIControl {
     }
     
     /// Color of the the thumb
-    @IBInspectable public var thumbColor : UIColor = UIColor.darkGray {
+    @IBInspectable public var thumbColor: UIColor = UIColor.darkGray {
         didSet {
             updateSlider()
         }
@@ -107,32 +107,51 @@ public class SplitSlider : UIControl {
     // MARK: - Track
     
     /// Background color of the track (inactive state)
-    @IBInspectable public var trackColor : UIColor = UIColor.lightGray {
+    @IBInspectable public var trackColor: UIColor = UIColor.lightGray {
         didSet {
             updateSlider()
         }
     }
     
-    
     /// Background color of the track (active state)
-    @IBInspectable public var trackHighlightColor : UIColor = UIColor.gray {
+    @IBInspectable public var trackHighlightColor: UIColor = UIColor.gray {
         didSet {
             updateSlider()
         }
     }
     
     /// Height of the track
-    @IBInspectable public var trackHeight : CGFloat = 0 {
+    @IBInspectable public var trackHeight: CGFloat = 0 {
         didSet {
             updateTracksFrames()
         }
+    }
+    
+    public func set(leftHidden: Bool, rightHidden: Bool) {
+        left.isHidden = leftHidden
+        left.isOnlyPortion = leftHidden == false && rightHidden
+        left.track.roundMinSide = left.isOnlyPortion
+        right.isHidden = rightHidden
+        right.isOnlyPortion = rightHidden == false && leftHidden
+        right.track.roundMinSide = right.isOnlyPortion
+        
+        zeroValueLabel.isHidden = leftHidden || rightHidden
+        
+        update()
+    }
+    
+    public func update() {
+        updateTracksFrames()
+        updateThumbsFrames()
+        updateLabels()
+        left.track.setNeedsDisplay()
+        right.track.setNeedsDisplay()
     }
     
     /// Left portion of the slider
     public let left = SplitSliderPortion()
     /// Right portion of the slider
     public let right = SplitSliderPortion()
-    
     
     /// Label showing left portion value
     public let leftValueLabel = UILabel()
@@ -161,8 +180,8 @@ public class SplitSlider : UIControl {
     }
     
     // MARK: - Private
-    fileprivate var _selectedPortion : SplitSliderPortion? = nil
-    fileprivate var _centerY : CGFloat {
+    fileprivate var _selectedPortion: SplitSliderPortion?
+    fileprivate var _centerY: CGFloat {
         return bounds.midY + bounds.midY / 2
     }
     
@@ -199,8 +218,8 @@ public class SplitSlider : UIControl {
         updateTracksFrames()
         
         // initial thumb frame, these can be overriden (the Y position)
-        left.setThumb(frame: CGRect(x: left.track.x - thumbSize/2, y: _centerY - thumbSize/2, width: thumbSize, height: thumbSize))
-        right.setThumb(frame: CGRect(x: right.track.x - thumbSize/2, y: _centerY - thumbSize/2, width: thumbSize, height: thumbSize))
+        left.setThumb(frame: CGRect(x: left.track.x - thumbSize / 2, y: _centerY - thumbSize / 2, width: thumbSize, height: thumbSize))
+        right.setThumb(frame: CGRect(x: right.track.x - thumbSize / 2, y: _centerY - thumbSize / 2, width: thumbSize, height: thumbSize))
         
         updateThumbsFrames()
     }
@@ -229,14 +248,22 @@ public class SplitSlider : UIControl {
     }
     
     fileprivate func updateTracksFrames() {
-        
-        left.updateTrack(frame: CGRect(x: 0, y: _centerY - trackHeight/2, width: bounds.midX, height: trackHeight))
-        right.updateTrack(frame: CGRect(x: bounds.midX, y: _centerY - trackHeight/2, width: bounds.midX, height: trackHeight))
+        if left.isOnlyPortion {
+            left.updateTrack(frame: CGRect(x: 0, y: _centerY - trackHeight / 2, width: bounds.width, height: trackHeight))
+            right.updateTrack(frame: CGRect(x: 0, y: _centerY - trackHeight / 2, width: 0, height: trackHeight))
+        } else if right.isOnlyPortion {
+            left.updateTrack(frame: CGRect(x: 0, y: _centerY - trackHeight / 2, width: 0, height: trackHeight))
+            right.updateTrack(frame: CGRect(x: 0, y: _centerY - trackHeight / 2, width: bounds.width, height: trackHeight))
+        } else {
+            left.updateTrack(frame: CGRect(x: 0, y: _centerY - trackHeight / 2, width: bounds.midX, height: trackHeight))
+            right.updateTrack(frame: CGRect(x: bounds.midX, y: _centerY - trackHeight / 2, width: bounds.midX, height: trackHeight))
+        }
     }
     
     fileprivate func updateLabelFrames() {
         let third = bounds.width / 3
         let y = _centerY - thumbSize * 1.5
+        
         leftValueLabel.frame = CGRect(x: 0, y: y, width: third, height: thumbSize)
         zeroValueLabel.frame = CGRect(x: third, y: y, width: third, height: thumbSize)
         rightValueLabel.frame = CGRect(x: 2 * third, y: y, width: third, height: thumbSize)
@@ -247,16 +274,20 @@ public class SplitSlider : UIControl {
     }
     
     fileprivate func updateLabels() {
-        let leftStepIsInteger = (rint(left.step) == left.step)
-        let rightStepIsInteger = (rint(right.step) == right.step)
-        leftValueLabel.text = leftStepIsInteger ? "\(Int(left.value))" : "\(left.value)"
-        rightValueLabel.text = rightStepIsInteger ? "\(Int(right.value))" : "\(right.value)"
-        let leftMin = leftStepIsInteger ? "\(Int(left.min))" : "\(left.min)"
-        let rightMin = rightStepIsInteger ? "\(Int(right.min))" : "\(right.min)"
-        if left.min == right.min {
-            zeroValueLabel.text = leftMin
+        if left.isOnlyPortion {
+            leftValueLabel.text = "\(left.value)"
+            rightValueLabel.text = "\(left.min)"
+        } else if right.isOnlyPortion {
+            leftValueLabel.text = "\(right.min)"
+            rightValueLabel.text = "\(right.value)"
         } else {
-            zeroValueLabel.text = "\(leftMin)  \(rightMin)"
+            leftValueLabel.text = "\(left.value)"
+            rightValueLabel.text = "\(right.value)"
+            if left.min == right.min {
+                zeroValueLabel.text = "\(left.min)"
+            } else {
+                zeroValueLabel.text = "\(left.min)  \(right.min)"
+            }
         }
     }
     
@@ -264,10 +295,10 @@ public class SplitSlider : UIControl {
     public override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let location = touch.location(in: self)
         
-        if left.thumb.frame.contains(location) {
+        if right.isOnlyPortion == false && left.thumb.frame.insetBy(dx: -thumbSize / 3, dy: -thumbSize / 2).contains(location) {
             _selectedPortion = left
             delegate?.slider(self, didSelect: _selectedPortion)
-        } else if right.thumb.frame.contains(location) {
+        } else if left.isOnlyPortion == false && right.thumb.frame.insetBy(dx: -thumbSize / 3, dy: -thumbSize / 2).contains(location) {
             _selectedPortion = right
             delegate?.slider(self, didSelect: _selectedPortion)
         }
@@ -289,7 +320,6 @@ public class SplitSlider : UIControl {
     }
     
     public override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-        
         _selectedPortion = nil
         delegate?.slider(self, didSelect: _selectedPortion)
     }

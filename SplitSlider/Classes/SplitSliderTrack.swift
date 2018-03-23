@@ -27,37 +27,35 @@
 //  SOFTWARE.
 //  
 
-public enum SplitSliderTrackDirection : Int {
+public enum SplitSliderTrackDirection: Int {
     case toLeft
     case toRight
 }
 
 public class SplitSliderTrack: CALayer {
     
-    
     /// Direction of the slider
-    public var direction : SplitSliderTrackDirection = .toRight {
+    public var direction: SplitSliderTrackDirection = .toRight {
         didSet {
             setNeedsDisplay()
         }
     }
     
     /// How much of the track is highlighted 0..1
-    public var highlightRatio : CGFloat = 0 {
+    public var highlightRatio: CGFloat = 0.25 {
         didSet {
             highlightRatio = min(1, highlightRatio)
         }
     }
     
-    
     /// Padding on the zero side (to accomodate thumbs not clashing while still showing the track all the way
-    public var zeroOffset : CGFloat = 0
+    public var zeroOffset: CGFloat = 0
     
     /// Frame's X value for currently highlighted ratio
-    public var x : CGFloat {
+    public var x: CGFloat {
         set {
             let width = frame.width - zeroOffset
-            let startX : CGFloat
+            let startX: CGFloat
             if direction == .toRight {
                 startX = frame.origin.x + zeroOffset
                 let newX = max(startX, min(newValue, frame.origin.x + frame.width))
@@ -75,14 +73,13 @@ public class SplitSliderTrack: CALayer {
     }
     
     /// Color of the unselected part of track
-    public var color : UIColor = UIColor.lightGray
+    public var color: UIColor = UIColor.lightGray
     
     /// Color of the selected part of track
-    public var highlightColor : UIColor = UIColor.green
+    public var highlightColor: UIColor = UIColor.green
     
     /// Should round the corners on the minimum side of the track
-    public var roundMinSide : Bool = false
-    
+    public var roundMinSide: Bool = false
     
     public override init() {
         super.init()
@@ -101,7 +98,7 @@ public class SplitSliderTrack: CALayer {
         
         initialize()
     }
-
+    
     public override func draw(in ctx: CGContext) {
         
         let path = UIBezierPath(roundedRect: bounds, cornerRadius: bounds.height / 2)
@@ -112,26 +109,34 @@ public class SplitSliderTrack: CALayer {
         
         if roundMinSide == false {
             ctx.fill(CGRect(x: direction == .toRight ? 0 : bounds.width - bounds.height,
-                       y: 0,
-                       width: bounds.height,
-                       height: bounds.height))
+                            y: 0,
+                            width: bounds.height,
+                            height: bounds.height))
             
         }
-        
         
         // calculate rect for highlight
         let width = zeroOffset + bounds.width * highlightRatio
         ctx.setFillColor(highlightColor.cgColor)
-        ctx.fill(CGRect(x: direction == .toRight ? 0 : bounds.width - width,
-                        y: 0,
-                        width: width,
-                        height: bounds.height))
+        if roundMinSide {
+            let highlightPath = UIBezierPath(roundedRect: CGRect(x: direction == .toRight ? 0 : bounds.width - width,
+                                                                 y: 0,
+                                                                 width: width,
+                                                                 height: bounds.height),
+                                             cornerRadius: bounds.height / 2)
+            ctx.addPath(highlightPath.cgPath)
+            ctx.fillPath()
+        } else {
+            ctx.fill(CGRect(x: direction == .toRight ? 0 : bounds.width - width,
+                            y: 0,
+                            width: width,
+                            height: bounds.height))
+        }
     }
     
     // MARK: - Private
     fileprivate func initialize() {
         backgroundColor = UIColor.clear.cgColor
         contentsScale = UIScreen.main.scale
-        
     }
 }
