@@ -10,5 +10,5 @@ before_install:
 - gem install cocoapods # Since Travis is not always on latest version
 - pod install --project-directory=Example --repo-update
 script:
-- set -o pipefail && xcodebuild -workspace Example/SplitSlider.xcworkspace -scheme SplitSlider-Example ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator | xcprett
+- set -o pipefail && xcodebuild -workspace Example/SplitSlider.xcworkspace -scheme SplitSlider-Example ONLY_ACTIVE_ARCH=NO -sdk iphonesimulator | xcpretty
 - pod lib lint --no-clean --allow-warnings
