@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SplitSlider'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'A simple customizable two way slider.'
 
 # This description is used to generate tags and improve search results.
@@ -28,18 +28,10 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '3ph' => 'instantni.med@gmail.com' }
   s.source           = { :git => 'https://github.com/3ph/SplitSlider.git', :tag => s.version.to_s }
+  s.swift_version    = '4.2'
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'SplitSlider/Classes/**/*'
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
-
-  # s.resource_bundles = {
-  #   'SplitSlider' => ['SplitSlider/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
