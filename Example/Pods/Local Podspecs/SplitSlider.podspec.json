@@ -18,5 +18,8 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "SplitSlider/Classes/**/*"
+  "source_files": "SplitSlider/Classes/**/*",
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "4.0"
+  }
 }
